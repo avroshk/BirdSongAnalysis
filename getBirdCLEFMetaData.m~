@@ -10,7 +10,7 @@ function [features, classes] = getBirdCLEFMetaData
     numFeatures = 30;
     
 %    features = zeros(numFiles, numFeatures);
-    features = zeros(1, numFeatures);
+    features = zeros(numFiles, numFeatures);
 %     features = [];
     fs = zeros(numFiles,1);
     metadata = struct('MetaData',0);
@@ -60,7 +60,7 @@ function [features, classes] = getBirdCLEFMetaData
                         
                         
 
-                        song = denoise(song_noisy(1:300000),fs(j));
+                        song = denoise(song_noisy,fs(j));
                         
                     
 

@@ -1,0 +1,20 @@
+numObs = length(classes);
+
+unique_classes = unique(classes);
+
+num_unique_classes = length(unique_classes);
+
+transformed_classes = classes; 
+
+for k=1:num_unique_classes
+    for j=1:numObs 
+        indices = strcmp(classes(j),unique_classes(k));
+        if(indices~=0) 
+            
+        end
+        index = find(unique_classes(k));
+        transformed_classes (indices) = index;
+    end
+end
+    
+ 
