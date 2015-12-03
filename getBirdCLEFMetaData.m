@@ -4,7 +4,7 @@
 
 function [features, classes] = getBirdCLEFMetaData
     
-    numFiles = 750;
+    numFiles = 14027;
     startIndex = 1;
 %     numMetaData = 21
     numFeatures = 26;
@@ -51,8 +51,9 @@ function [features, classes] = getBirdCLEFMetaData
 %             if (strcmp(metadata(j).MetaData.Quality.Text,'4'))
 %                 if (isempty(metadata(j).MetaData.BackgroundSpecies.Text))
 %                     if ~(isempty(strfind(metadata(j).MetaData.Content.Text,'song')))
-
+            
                         count = count + 1;
+                        disp(j);
                         [song_noisy,fs(j)] = audioread(char(audioFiles(j,1)));
 %                         song  = song_noisy;
 %                         subplot(6,1,1);

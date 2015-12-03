@@ -1,6 +1,15 @@
+
+
 numObs = length(classes);
 
-unique_classes = unique(classes);
+new_classes = cell(numObs,1);
+
+
+for i=1:numObs
+   new_classes{i} = char(classes{i}); 
+end
+
+unique_classes = unique(new_classes);
 
 num_unique_classes = length(unique_classes);
 
