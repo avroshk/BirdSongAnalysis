@@ -7,7 +7,7 @@ import pandas as pd
 from matplotlib import style
 style.use("ggplot")
 
-print 'Hello!'
+LABELS = ["Species"]
 
 FEATURES = ["SF_mean",
 			"SF_std",
@@ -41,28 +41,34 @@ FEATURES = ["SF_mean",
 
 
 def Build_Data_Set():
-	data_df = pd.DataFrame.from_csv("mfcc_dataset.csv")
+	# data_df = pd.read_csv("mfcc_dataset.csv",index_col=0,parse_dates=True)
 
+	data_df = pd.read_csv('mfcc_dataset.csv',sep=',', header=None,
+                         names=FEATURES)
+
+	data_df.head();	
+
+	# data_df = pd.DataFrame.from_csv("mfcc_dataset.csv")
     
-    y = (data_df["Species"].values)
-
-
-	X = np.array(data_df[FEATURES].values.tolist())
-
-	X = preprocessing.scale(X)
-
-	return x,y
+	X = pd.DataFrame(data_df, columns=FEATURES)
+ #    X = np.array(data_df[FEATURES].values)#.tolist())
+    # y = pd.DataFrame(data_df)
+	# X = preprocessing.scale(X)
+	# print y
+	y = pd.DataFrame(data_df,columns=LABELS)
+	
+	
+	return X,y
 
 def Analysis():
 
 	test_size = 500
 
-
+	# print 'Hello!'
 
 	X,y = Build_Data_Set()
-	print(len(X))
 
-	clf = svm.SVC(kernel="linear",c=1.0)
+	clf = svm.SVC(kernel="linear",C= 1.0)
 	# clf.fit(X,y)
 
 	clf.fit(X[:-test_size],y[:-test_size])
