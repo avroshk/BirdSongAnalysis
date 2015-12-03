@@ -4,13 +4,13 @@
 
 function [features, classes] = getBirdCLEFMetaData
     
-    numFiles = 3;
-    startIndex = 3;
+    numFiles = 750;
+    startIndex = 1;
 %     numMetaData = 21
-    numFeatures = 30;
+    numFeatures = 26;
     
-%    features = zeros(numFiles, numFeatures);
-    features = zeros(1, numFeatures);
+   features = zeros(numFiles, numFeatures);
+%     features = zeros(1, numFeatures);
 %     features = [];
     fs = zeros(numFiles,1);
     metadata = struct('MetaData',0);
@@ -60,7 +60,7 @@ function [features, classes] = getBirdCLEFMetaData
                         
                         
 
-                        song = denoise(song_noisy(1:300000),fs(j));
+                        song = denoise(song_noisy,fs(j));
                         
                     
 
@@ -69,9 +69,9 @@ function [features, classes] = getBirdCLEFMetaData
 %                         spectral_flatness = ComputeFeature('SpectralFlatness',song,fs(j),hannWindow,blockLength,hopLength);
 %                       rms_blocked = blockIt(rms,20,10);
 %                       rms_flux = FeatureSpectralFlux(rms_blocked);
-
-                        subplot(6,1,2);
-                        plot(song);
+% 
+%                         subplot(6,1,2);
+%                         plot(song);
 
 %                         subplot(6,1,3);
 %                         plot(rms);
@@ -79,14 +79,14 @@ function [features, classes] = getBirdCLEFMetaData
 %                         subplot(6,1,4);
 %                         plot(spectral_centroid);
 
-                        subplot(6,1,4);
-                        spectrogram(song,hannWindow,blockLength-hopLength,blockLength,fs(j),'yaxis'); colormap bone; colorbar off;
+%                         subplot(6,1,4);
+%                         spectrogram(song,hannWindow,blockLength-hopLength,blockLength,fs(j),'yaxis'); colormap bone; colorbar off;
 
                         song_22k = resample(song,fs_22k,fs(j));
 %                         subplot(7,1,6);
 %                         spectrogram(song_22k,hannWindow,blockLength-hopLength,blockLength,fs_22k,'yaxis'); colormap bone; colorbar off; 
 
-                        song_filt1 = removeMedian(song_22k);
+%                         song_filt1 = removeMedian(song_22k);
 %                         subplot(6,1,5);
 %                         spectro_song = spectrogram(song_filt1,hannWindow,blockLength-hopLength,blockLength,fs_22k,'yaxis'); colormap bone; colorbar off;
                         
@@ -96,7 +96,7 @@ function [features, classes] = getBirdCLEFMetaData
 %                         player1 = audioplayer(song_noisy,fs(j));
 %                         pl ayer2 = audioplayer(song,fs(j));
                         
-                         features(count,:) = extractFeatures(song_filt1,hannWindow,blockLength,hopLength,fs(j));
+                         features(count,:) = extractFeatures(song_22k,hannWindow,blockLength,hopLength,fs(j));
                          classes(count,1) = cellstr(s.Audio.Species.Text);
 %                            pitchchroma = ComputeFeature('SpectralPitchChroma',song_filt1,fs_22k,hannWindow,blockLength,hopLength);
 
